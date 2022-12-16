@@ -50,6 +50,7 @@ function getKakuin() {
               "FileName": "test.xlsx"
             }
           },
+          contentType: 'application/json',
           beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Bearer " + access_token);
           }
