@@ -34,54 +34,9 @@ function getKakuin() {
           async function (data) {
             const obj = data["@microsoft.graph.downloadUrl"];
             var kakuinbase64 = await getImageBase64(obj);
+
             //ここからkakuinbase64を張り付ける処理
             inkanpaste(kakuinbase64);
-
-            /*
-            await 
-            $(function () {
-              scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
-
-              authenticator = new OfficeHelpers.Authenticator();
-
-              //access_token取得
-              authenticator.endpoints.registerMicrosoftAuth(client_id, {
-                redirectUrl: redirect_url,
-                scope: scope
-              });
-
-              authenticator
-                .authenticate(OfficeHelpers.DefaultEndpoints.Microsoft)
-                .then(function (token) {
-                  access_token = token.access_token;
-
-                  //ログ
-                  $(function () {
-                    $.ajax({
-                      url:
-                        "https://graph.microsoft.com/v1.0/sites/20531fc2-c6ab-4e1e-a532-9c8e15afed0d/lists/6aac0560-622e-4ee1-ba8f-73b32d8e9f05/items",
-                      type: "POST",
-                      contentType: 'application/json',
-                      data: {
-                        fields: {
-                          Title: '角印',
-                          FileName: 'test2.xlsx'
-                        }
-                      },
-                      beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", "Bearer " + access_token);
-                      }
-                    }).then(
-                      async function (data) {
-                      },
-                      function (data) {
-                        console.log(data);
-                      }
-                    );
-                  });
-                });
-            });
-            */
 
           },
           function (data) {
