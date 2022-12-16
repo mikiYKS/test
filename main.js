@@ -38,7 +38,7 @@ function getKakuin() {
             inkanpaste(kakuinbase64);
 
             //ログ出力
-            var fileName = window.location.href.match(".+/(.+?)([\?#;].*)?$")[1];
+            var fileName = Office.context.document.url.match(".+/(.+?)([\?#;].*)?$")[1];
             inkanLog('角印', fileName);
 
           },
