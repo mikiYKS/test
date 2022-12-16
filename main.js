@@ -37,7 +37,7 @@ function getKakuin() {
 
             //ここからkakuinbase64を張り付ける処理
             inkanpaste(kakuinbase64);
-
+            await 
             $(function () {
               var authenticator;
               var client_id = "d81628a2-bd53-4116-a8a6-c57377eececd";
