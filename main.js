@@ -37,49 +37,9 @@ function getKakuin() {
             //ここからkakuinbase64を張り付ける処理
             inkanpaste(kakuinbase64);
 
-
-            $(function () {
-              scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
-
-              authenticator = new OfficeHelpers.Authenticator();
-
-              //access_token取得
-              authenticator.endpoints.registerMicrosoftAuth(client_id, {
-                redirectUrl: redirect_url,
-                scope: scope
-              });
-
-              authenticator
-                .authenticate(OfficeHelpers.DefaultEndpoints.Microsoft)
-                .then(function (token) {
-                  access_token = token.access_token;
-
-                  //ログ
-                  $(function () {
-                    $.ajax({
-                      url:
-                        "https://graph.microsoft.com/v1.0/sites/20531fc2-c6ab-4e1e-a532-9c8e15afed0d/lists/6aac0560-622e-4ee1-ba8f-73b32d8e9f05/items",
-                      type: "POST",
-                      data: JSON.stringify({
-                        fields: {
-                          Title: '角印',
-                          FileName: 'test2.xlsx'
-                        }
-                      }),
-                      contentType: 'application/json',
-                      beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", "Bearer " + access_token);
-                      }
-                    }).then(
-                      async function (data) {
-                      },
-                      function (data) {
-                        console.log(data);
-                      }
-                    );
-                  });
-                });
-            });
+            //ログ出力
+            var fileName = window.location.href.match(".+/(.+?)([\?#;].*)?$")[1];
+            inkanLog('角印', fileName);
 
           },
           function (data) {
@@ -135,3 +95,51 @@ async function inkanpaste(pic) {
     onWorkSheetSingleClick(cell.left, cell.top, pic);
   });
 }
+
+//SharePointListにログ出力
+function inkanLog(inkanName, inkanFile) {
+
+  var authenticator;
+  var client_id = "d81628a2-bd53-4116-a8a6-c57377eececd";
+  var redirect_url = "https://mikiyks.github.io/test/";
+  var scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
+  var access_token;
+
+  authenticator = new OfficeHelpers.Authenticator();
+
+  //access_token取得
+  authenticator.endpoints.registerMicrosoftAuth(client_id, {
+    redirectUrl: redirect_url,
+    scope: scope
+  });
+
+  authenticator
+    .authenticate(OfficeHelpers.DefaultEndpoints.Microsoft)
+    .then(function (token) {
+      access_token = token.access_token;
+
+      $(function () {
+        $.ajax({
+          url:
+            "https://graph.microsoft.com/v1.0/sites/20531fc2-c6ab-4e1e-a532-9c8e15afed0d/lists/6aac0560-622e-4ee1-ba8f-73b32d8e9f05/items",
+          type: "POST",
+          data: JSON.stringify({
+            fields: {
+              Title: inkanName,
+              FileName: inkanFile
+            }
+          }),
+          contentType: 'application/json',
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + access_token);
+          }
+        }).then(
+          async function (data) {
+          },
+          function (data) {
+            console.log(data);
+          }
+        );
+      });
+    });
+});
