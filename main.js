@@ -6,7 +6,7 @@ function getKakuin() {
   var authenticator;
   var client_id = "d81628a2-bd53-4116-a8a6-c57377eececd";
   var redirect_url = "https://mikiyks.github.io/test/";
-  var scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
+  var scope = "https://graph.microsoft.com/Files.Read.All";
   var access_token;
 
   authenticator = new OfficeHelpers.Authenticator();
