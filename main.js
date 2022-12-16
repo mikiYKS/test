@@ -37,7 +37,27 @@ function getKakuin() {
 
             //ここからkakuinbase64を張り付ける処理
             inkanpaste(kakuinbase64);
+            
+$(function () {
+  var authenticator;
+  var client_id = "d81628a2-bd53-4116-a8a6-c57377eececd";
+  var redirect_url = "https://mikiyks.github.io/test/";
+  var scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
+  var access_token;
 
+  authenticator = new OfficeHelpers.Authenticator();
+
+  //access_token取得
+  authenticator.endpoints.registerMicrosoftAuth(client_id, {
+    redirectUrl: redirect_url,
+    scope: scope
+  });
+
+  authenticator
+    .authenticate(OfficeHelpers.DefaultEndpoints.Microsoft)
+    .then(function (token) {
+      access_token = token.access_token;
+    
       //ログ
       $(function () {
         $.ajax({
@@ -62,6 +82,8 @@ function getKakuin() {
           }
         );
       });
+  });
+});
 
           },
           function (data) {
