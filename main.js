@@ -38,8 +38,15 @@ function getKakuin() {
             inkanpaste(kakuinbase64);
 
             //ログ出力
-            var fileName = Office.context.document.url.match(".+/(.+?)([\?#;].*)?$")[1];
-            inkanLog('角印', fileName);
+            Excel.run(async (context) => {
+              const sheet = context.workbook.worksheets.getActiveWorksheet();
+              sheet.load('name');
+              await context.sync();
+              const fileName = sheet.name;
+              const inkanName = '角印';
+              inkanLog(inkanName, fileName);
+            });
+
 
           },
           function (data) {
@@ -142,4 +149,4 @@ function inkanLog(inkanName, inkanFile) {
         );
       });
     });
-}
+};
