@@ -34,16 +34,13 @@ function getKakuin() {
           async function (data) {
             const obj = data["@microsoft.graph.downloadUrl"];
             var kakuinbase64 = await getImageBase64(obj);
-
             //ここからkakuinbase64を張り付ける処理
             inkanpaste(kakuinbase64);
+
+            /*
             await 
             $(function () {
-              var authenticator;
-              var client_id = "d81628a2-bd53-4116-a8a6-c57377eececd";
-              var redirect_url = "https://mikiyks.github.io/test/";
-              var scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
-              var access_token;
+              scope = "https://graph.microsoft.com/Sites.ReadWrite.All";
 
               authenticator = new OfficeHelpers.Authenticator();
 
@@ -84,6 +81,7 @@ function getKakuin() {
                   });
                 });
             });
+            */
 
           },
           function (data) {
